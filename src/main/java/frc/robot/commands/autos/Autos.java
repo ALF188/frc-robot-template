@@ -4,17 +4,14 @@
 
 package frc.robot.commands.autos;
 
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.IntakeRollersSubsystem;
-import frc.robot.subsystems.TankDriveSubsystem;
-import frc.robot.subsystems.WristSubsystem;
-import frc.robot.Constants.AutoConstants;
+import frc.robot.subsystems.*;
+import frc.robot.Constants.*;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public final class Autos {
 
-  /** Example static factory for an autonomous command. */
+  /** Simple  auto that drives forward a constant distance */
   public static CommandBase driveForwardAuto(TankDriveSubsystem driveSubsystem) {
     return new DriveForwardAuto(driveSubsystem, AutoConstants.distanceForward, false);
   }

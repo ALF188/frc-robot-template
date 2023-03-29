@@ -15,24 +15,26 @@ import frc.robot.commands.autos.Autos;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // Define subsystems
   private final TankDriveSubsystem driveSubsystem;
 
-  //SmartDashboard autonomous selector
+  // SmartDashboard autonomous selector
   private SendableChooser<Command> autoChooser;
 
-  //Xbox Controller for command based 
+  // Xbox Controller for command based 
   private final CommandXboxController driverController =
       new CommandXboxController(ControllerConstants.kDriverControllerPort);
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // Initalize subystems
     driveSubsystem = new TankDriveSubsystem();
 
+    // Set default commands
     driveSubsystem.setDefaultCommand(
       new TankDriveCommand(driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX(), false));
 
-
+    // Create the SmartDashboard autonomous selector
     autoChooser = new SendableChooser<>();
     autoChooser.addOption("Forward Auto", Autos.driveForwardAuto(driveSubsystem));
     SmartDashboard.putData(autoChooser);
@@ -42,6 +44,9 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    // Sets up triggers for button clicks
+    // Example:
+    // driverController.rightBumper().onTrue(new ExampleCommand(driveSubsystem));
     
   }
 
@@ -51,7 +56,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return autoChooser.getSelected();
   }
 }
