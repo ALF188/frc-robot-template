@@ -16,6 +16,7 @@ import frc.robot.subsystems.*;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final TankDriveSubsystem driveSubsystem;
 
   //SmartDashboard autonomous selector
   private SendableChooser<Command> autoChooser;
@@ -26,7 +27,15 @@ public class RobotContainer {
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    driveSubsystem = new TankDriveSubsystem();
 
+    driveSubsystem.setDefaultCommand(
+      new TankDriveCommand(driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX(), false));
+
+
+    autoChooser = new SendableChooser<>();
+    autoChooser.addOption("Forward Auto", Autos.driveForwardAuto(driveSubsystem));
+    SmartDashboard.putData(autoChooser);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -43,7 +52,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return m_autoCommand;
-    return null;
+    return autoChooser.getSelected();
   }
 }
